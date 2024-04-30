@@ -1,0 +1,27 @@
+GET http://localhost:3000/books
+
+###
+
+GET http://localhost:3000/books/10
+
+
+###
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+    "name": "The Martian",
+    "author": "Andy Weir",
+    "year": "2011"
+}
+
+### 
+PUT http://localhost:3000/books/10
+Content-Type: application/json
+
+{
+    "year": "1950"
+}
+
+###
+DELETE http://localhost:3000/books/10
