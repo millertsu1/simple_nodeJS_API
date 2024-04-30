@@ -24,7 +24,7 @@ const writeData = (data) =>{
 
 //endpoints
 app.get('/', (req, res)=>{
-    res.send('Hello World motherfuck');
+    res.send('Welcome to My Books API');
 });
 
 app.get('/books', (req,res) => {
