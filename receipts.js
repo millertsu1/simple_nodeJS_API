@@ -53,6 +53,24 @@ app.post('/receipts', (req, res) => {
     res.json({ message: 'Receipt created successfully' });
 });
 
+app.get('/receipts/:id',(req, res) =>{
+    const data = readData();
+    const body = req.body;
+    const id = parseInt(req.params.id);
+    const receiptIndex = data.receipts.findIndex( receipt => receipt.id === id);
+
+    if(receiptIndex != -1){
+        data.receipts[receiptIndex] ={
+            ...data.receipts[receiptIndex],
+            ...body
+        };
+        writeData(data);
+        res.json({message:"Receipt updated successfully"});
+    }else{
+        res.status(404).send({error: "receipt no found"})
+    }
+})
+
 app.listen(3000, ()=>{
     console.log('server listen on port 3000');
 });

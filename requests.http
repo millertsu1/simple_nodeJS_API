@@ -31,4 +31,24 @@ DELETE http://localhost:3000/books/10
 GET http://localhost:3000/receipts
 
 ###
-GET http://localhost:3000/receipts/6
+GET http://localhost:3000/receipts/4
+
+###
+POST http://localhost:3000/receipts
+Content-Type: application/json
+
+{
+    "name": "Rice with peas, pumkin and meat",
+    "category": "Main Course",
+    "ingredients": "Rice, peas, pumkin, meat",
+    "time": "35",
+    "Preparation": "1. Boil the chicken until fully cooked. 2. In a separate pot, cook the sweet potato until tender. 3. Mix the cooked chicken and sweet potato together. Serve when cooled."
+}
+
+###
+PUT http://localhost:3000/receipts/4
+Content-Type: application/json
+
+{
+    "name": "Quinoa and Salmon"
+}
