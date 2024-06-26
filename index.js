@@ -1,9 +1,14 @@
+/*
+? link a video tutorial: https://www.youtube.com/watch?v=BImKbdy-ubM */
+
 import express from 'express';
 import fs from 'fs';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors()); 
 
 const readData = () =>{
     try{
@@ -11,6 +16,7 @@ const readData = () =>{
         return(JSON.parse(data));
     }catch(error){
         console.log(error);
+        return { books: [] };
     }
 };
 
@@ -42,10 +48,16 @@ app.get('/books/:id', (req, res) => {
 app.post('/books',(req, res) =>{
     const data = readData();
     const body = req.body;
+
+    if (!body.name || !body.author || !body.year || !body.image || !body.viewUrl || !body.tag) {
+        return res.status(400).send({ error: "Name, Author, Year, Image, View URL, and Tag are required" });
+    }
+
     const newBook = {
-        id: data.books.length + 1,
+        id: data.books.length ? data.books[data.books.length - 1].id + 1 : 1, // Generar un ID único
         ...body,
     };
+
     data.books.push(newBook);
     writeData(data);
     res.json(newBook);
@@ -71,15 +83,20 @@ app.put('/books/:id', (req, res) => {
     }
 });
 
-app.delete('/books/:id', (req, res) =>{
+app.delete('/books/:id', (req, res) => {
     const data = readData();
     const id = parseInt(req.params.id);
     const bookIndex = data.books.findIndex(book => book.id === id);
-    data.books.splice(bookIndex, 1);
-    writeData(data);
-    res.json({message: "Book deleted successfully"})
+
+    if (bookIndex !== -1) {
+        data.books.splice(bookIndex, 1);
+        writeData(data);
+        res.json({ message: "Book deleted successfully" });
+    } else {
+        res.status(404).send({ error: "Book not found" });
+    }
 });
 
-app.listen(3000, ()=>{
-    console.log('server listen on port 3000');
-}); 
+app.listen(3000, () => {
+    console.log('Server listening on port 3000');
+});

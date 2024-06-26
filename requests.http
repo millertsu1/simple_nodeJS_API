@@ -10,21 +10,24 @@ POST http://localhost:3000/books
 Content-Type: application/json
 
 {
-    "name": "The Martian",
-    "author": "Andy Weir",
-    "year": 2011
+    "name": "HTML: Notes for Professionals",
+    "author": "Anonymous",
+    "year": 2015,
+    "image": "https://books.goalkicker.com/CSSBook/CSSGrow.png",
+    "viewUrl": "https://books.goalkicker.com/CSSBook/CSSNotesForProfessionals.pdf",
+    "tag": "Programming"
 }
 
 ### 
-PUT http://localhost:3000/books/10
+PUT http://localhost:3000/books/18
 Content-Type: application/json
 
 {
-    "year": 1950
+    "year": 2016
 }
 
 ###
-DELETE http://localhost:3000/books/10
+DELETE http://localhost:3000/books/19
 
 ##########################
 
